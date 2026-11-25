@@ -1,0 +1,3 @@
+# Classic Algorithms & Terminal Games Monorepo
+
+Initializing monorepo...
