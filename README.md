@@ -53,17 +53,18 @@ $$S_{t+1}(i, j) = \begin{cases}
 0 & \text{otherwise}
 \end{cases}$$
 
-**Dynamic Grid Expansion:** Unlike traditional static grid implementations bounded by hard reflection or toroidal wrapping, the engine actively inspects coordinate perimeters each generation. When living cells approach the allocated boundary, the coordinate space dynamically reallocates, expanding outward to prevent boundary clipping.
+**Dynamic Perimeter Expansion:** Unlike traditional static grid implementations bounded by hard reflection or toroidal wrapping, the engine actively inspects coordinate perimeters each generation. When living cells approach the allocated boundary, the coordinate space dynamically reallocates, expanding outward (up to $2\times$ initial dimension, $2N+1$) to prevent boundary clipping.
 
 ### 2. Fallen Kingdom Governance Simulation (`FallingKingdom.c`)
 Models sovereign resource management using a normalized 3-dimensional macroeconomic state vector bounded within $[0, 100]$:
-$$\mathbf{S}_t = \begin{pmatrix} P_t \\ C_t \\ T_t \end{pmatrix} = \begin{pmatrix} \text{Citizenry / Population Well-being} \\ \text{Court / Aristocratic Satisfaction} \\ \text{Treasury / Financial Solvency} \end{pmatrix}$$
+$$\mathbf{S}_t = \begin{pmatrix} P_t \\ C_t \\ T_t \end{pmatrix} = \begin{pmatrix} \text{Citizenry / Population Well-being} \\ \text{Court / Aristocratic Loyalty} \\ \text{Treasury / Financial Solvency} \end{pmatrix}$$
 
-**Decision Branching & Differential Updates:**
-Binary decision options apply discrete delta vectors $\mathbf{\Delta}_k = (\Delta P_k, \Delta C_k, \Delta T_k)^\top$:
-$$\mathbf{S}_{t+1} = \operatorname{clip}_{[0, 100]}(\mathbf{S}_t + \mathbf{\Delta}_k)$$
-
-**Persistence & Serialization:** Includes low-level file I/O operations serializing binary game state (`save.bin`), enabling persistent session recovery between runs.
+- **Pointer-Based Linked List Engine:** Manages a dynamic singly linked list of dilemmas ingested from `CHOICES.txt` and scenario files. Each dilemma tracks occurrence quotas (`chance = 3`), dynamically pruning exhausted scenarios and regenerating when the pool is depleted.
+- **Decision Branching & Differential Updates:** Binary options apply discrete delta vectors $\mathbf{\Delta}_k = (\Delta P_k, \Delta C_k, \Delta T_k)^\top$:
+  $$\mathbf{S}_{t+1} = \operatorname{clip}_{[0, 100]}(\mathbf{S}_t + \mathbf{\Delta}_k)$$
+- **Terminal Defeat Conditions:** The reign collapses if any parameter drops to zero ($P \le 0 \lor C \le 0 \lor T \le 0$) or if the average falls below critical thresholds ($\frac{P+C+T}{3} < 10$).
+- **Binary State Serialization:** Includes low-level file I/O operations serializing binary game state (`save.bin`) using C `struct`s, distinguishing between mid-game voluntary exits (`-1`) and post-defeat resets.
+- **Top 10 Leaderboard:** Tracks and ranks sovereigns based on aggregate survival metrics.
 
 ---
 
