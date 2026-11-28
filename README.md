@@ -1,21 +1,17 @@
 # C Algorithms & Interactive Simulation Engines
 
-A dedicated systems programming monorepo in ANSI C, consolidating low-level cellular automata with dynamic perimeter grid expansion and state-machine driven terminal strategy simulations.
+A dedicated systems programming repository in ANSI C, consolidating low-level cellular automata with dynamic perimeter grid expansion and state-machine driven terminal strategy simulations.
 
 ---
 
 ## Repository Structure
 
-```
+```text
 c-algorithms-and-games/
-├── projects/
-│   └── SimpleProjects/            # Low-level C simulations & game state engines
-│       ├── FallingKingdom.c       # Interactive kingdom state-machine strategy game in C
-│       ├── gameOfLife.c           # Conway's Game of Life with dynamic perimeter grid expansion in C
-│       └── README.md              # Detailed documentation for C systems
-│
-├── .gitignore                     # Centralized build and binary exclusion rules
-└── README.md                      # Monorepo technical documentation
+├── FallingKingdom.c       # Sovereign governance state machine with linked list dilemma dispatching
+├── gameOfLife.c           # Conway's Game of Life cellular automaton with dynamic perimeter expansion
+├── .gitignore             # Centralized build and binary exclusion rules
+└── README.md              # Technical documentation & system specifications
 ```
 
 ---
@@ -73,8 +69,6 @@ $$\mathbf{S}_t = \begin{pmatrix} P_t \\ C_t \\ T_t \end{pmatrix} = \begin{pmatri
 Compile using any standard C compiler (`gcc`, `clang`):
 
 ```bash
-cd projects/SimpleProjects
-
 # Compile Conway's Game of Life
 gcc -O2 gameOfLife.c -o gameOfLife
 ./gameOfLife
@@ -88,5 +82,4 @@ gcc -O2 FallingKingdom.c -o FallingKingdom
 
 ## Provenance & Git History
 
-Full commit history from the original source repository has been preserved using `git subtree`:
-- `projects/SimpleProjects` originating from [SimpleProjects](https://github.com/MahdiTheGreat/SimpleProjects)
+Full commit history from the original source repository has been preserved using `git subtree` originating from [SimpleProjects](https://github.com/MahdiTheGreat/SimpleProjects).
